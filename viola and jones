@@ -1,0 +1,36 @@
+A = vision.CascadeObjectDetector;
+A.MergeThreshold = 5;
+I = imread('obama.jpg');
+figure(1), imshow(I);
+title('Original photo');
+
+BB = step(A, I);
+figure(2), imshow(I);
+hold on
+for i = 1:size(BB,1)
+       rectangle('position',BB(i,:),'LineWidth',5,'LineStyle','-','EdgeColor','r');
+end
+title('Face Detection');
+hold off;
+
+B = vision.CascadeObjectDetector('Nose');
+B.MergeThreshold = 45;
+BB = step(B,I);
+figure(3), imshow(I);
+hold on
+for i = 1:size(BB,1)
+    rectangle('position',BB(i,:),'LineWidth',4,'LineStyle','-','EdgeColor','b');
+end
+title('Nose Detection');
+hold off;
+
+C = vision.CascadeObjectDetector('Mouth');
+C.MergeThreshold = 45;
+BB = step(C,I);
+figure(4), imshow(I);
+hold on
+for i = 1:size(BB,1)
+    rectangle('position',BB(i,:),'LineWidth',4,'LineStyle','-','EdgeColor','g');
+end
+title('Mata dan mulut');
+hold off;
